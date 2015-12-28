@@ -9,6 +9,14 @@ angular.module('starter', ['ionic', 'ngCordova'])
   $ionicConfigProvider.tabs.position('bottom')
 })
 
+.directive('filterBar', function(){
+  return {
+    //E de element para poder usar assim <filter-bar>
+    restrict: "E", 
+    templateUrl: "componentes/filter-bar.html"
+  }
+})
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -41,12 +49,17 @@ angular.module('starter', ['ionic', 'ngCordova'])
     } 
     );
   }
+
+  $scope.onFilter = function(option){
+      alert("Filtro" + option);
+  }
+
 })
 
 .controller('GalleryController', function($scope, imageUtil){
   $scope.onTabSelect = function (){
-
     $scope.imageGallery = undefined;
+
     imageUtil.getImage(imageUtil.cameraOptions.GALLERY ,function(imageData){
       $scope.imageGallery = "data:image/jpeg;base64," + imageData;
     }, function(err){
@@ -54,4 +67,9 @@ angular.module('starter', ['ionic', 'ngCordova'])
     } 
     );
   }
+
+  $scope.onFilter = function(option){
+      alert("Filtro" + option);
+  }
+  
 })
